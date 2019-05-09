@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom'
-import styles from './styles/Styles.css'
-import banner_image from './assets/greg-dragon-banner.jpg'
+import './styles/Styles.css'
+import Header from './components/Header';
 
 export default function App() {
+
+    /**
+     * Header visibility toggle state.
+     */
+    const [showHeader, setShowHeader] = useState(false)
+
+    /**
+     * Handles the scroll event.
+     * @param {React.SyntheticEvent} event 
+     */
+    function handleScroll(event) {
+        event.target.scrollY > 400 ? setShowHeader(true) : setShowHeader(false)
+    }
+
     return (
-        <main id="App">
-            <section className="parallax banner-image">
-                <h1 className="white-text">Hi this is Pablo.</h1>
+        <main onScroll={handleScroll}>
+            { showHeader && <Header/> }
+            <section className="image church" />
+            <section className="content">
+                <h1 className="section-title">It's ma website.</h1>
             </section>
-            <section className="static">
-                <h1 className="white-text">This is my website.</h1>
-            </section>
-            <section className="parallax banner-image-2">
-                <h1 className="white-text">Welcome.</h1>
+            <section className="image dragon"/>
+            <section className="content">
+                <h1 className="section-title">It's ma website.</h1>
             </section>
         </main>
     )

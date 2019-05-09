@@ -1,3 +1,81 @@
+@keyframes slideInFromTop {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+html, body {
+    margin: 0px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex: 1;
+    z-index: 2;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    padding: 8px 16px 8px 16px;
+    box-shadow: 0px 2px 8px grey;
+    animation: 0.1s linear 0s 1 slideInFromTop;
+}
+
+section {
+    margin: 0pc;
+}
+
+a {
+    font-family: 'Nunito Sans';
+    cursor: pointer;
+    transition: .2s 0s ease
+}
+
+a:hover {
+    color: hotpink
+}
+
+h1 {
+    font-family: 'Nunito Sans';
+    font-size: 32px;
+    margin: 0;
+}
+
+.image {
+    height: 800px;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.church {
+    background-image: url('../assets/greg-church.jpg')
+}
+
+.dragon {
+    background-image: url('../assets/greg-dragon-banner.jpg')
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    padding: 24px;
+    height: 600px;
+    align-items: center;
+    justify-content: center;
+    background-color: hotpink;
+}
+
 .flex-row {
     display: flex;
     flex: 1;
@@ -9,83 +87,15 @@
     flex-direction: column;
 }
 
-.center {
-    align-items: center;
-}
-
-body, html {
-    margin: 0;
-    padding: 0;
-}
-
-main {
-    /* The height needs to be set to a fixed value for the effect to work.
-     * 100vh is the full height of the viewport. */
-     height: 100vh;
-     width: 100%;
-     /* The scaling of the images would add a horizontal scrollbar, so disable x overflow. */
-     overflow-x: hidden;
-     /* Enable scrolling on the page. */
-     overflow-y: auto;
-     /* Set the perspective to 2px. This is essentailly the simulated distance from the viewport to transformed objects.*/
-     perspective: 1px;
-}
-
-section {
-    /* Needed for children to be absolutely positioned relative to the parent. */
-    position: relative;
-    /* The height of the container. Must be set, but it doesn't really matter what the value is. */
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-h1 {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 36px;
+.header-link {
     font-weight: bold;
+    padding: 16px 32px 16px 32px;
 }
 
-span {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
-}
-
-.parallax::after {
-    /* Display and position the pseudo-element */
-    content: " ";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  
-    /* Move the pseudo-element back away from the camera,
-     * then scale it back up to fill the viewport.
-     * Because the pseudo-element is further away, it appears to move more slowly, like in real life. */
-    transform: translateZ(-1px) scale(2);
-    /* Force the background image to fill the whole element. */
-    background-size: cover;
-    /* Keep the image from overlapping sibling elements. */
-    z-index: -1;
-  }
-
-/* The styling for the static div. */
-.static {
-    background: hotpink;
-  }
-
-.white-text {
+.section-title {
     color: white
 }
 
-.banner-image::after {
-    background-image: url('../assets/greg-dragon-banner.jpg');
-    background-size: cover;
-}
-
-.banner-image-2::after {
-    background-image: url('../assets/greg-church.jpg');
-    background-size: cover;
+.web-logo {
+    color: hotpink
 }
