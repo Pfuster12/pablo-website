@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import './styles/Styles.css'
 import Header from './components/Header';
@@ -15,13 +15,25 @@ export default function App() {
      * @param {React.SyntheticEvent} event 
      */
     function handleScroll(event) {
-        event.target.scrollY > 400 ? setShowHeader(true) : setShowHeader(false)
+        console.log(window.scrollY)
+        window.scrollY > 400 ? setShowHeader(true) : setShowHeader(false)
     }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    },
+    [])
 
     return (
         <main onScroll={handleScroll}>
             { showHeader && <Header/> }
-            <section className="image church" />
+            <section className="image church" >
+                <h1 className="section-title">Welcome</h1>
+            </section>
             <section className="content">
                 <h1 className="section-title">It's ma website.</h1>
             </section>

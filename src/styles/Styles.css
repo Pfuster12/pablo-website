@@ -17,7 +17,7 @@ main {
 }
 
 header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -53,9 +53,13 @@ h1 {
 }
 
 .image {
+    display: flex;
+    flex: 1;
     height: 800px;
     background-size: cover;
     background-position: 50% 50%;
+    align-items: center;
+    justify-content: center;
 }
 
 .church {
@@ -97,5 +101,6 @@ h1 {
 }
 
 .web-logo {
-    color: hotpink
+    color: hotpink;
+    padding: 0px 16px 0px 16px;
 }
