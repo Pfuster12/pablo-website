@@ -11,10 +11,14 @@
   "author": "Pablo",
   "license": "ISC",
   "dependencies": {
+    "highlight.js": "^9.15.9",
+    "marked": "^0.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "html-loader": "^0.5.5",
+    "markdown-loader": "^5.1.0",
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",

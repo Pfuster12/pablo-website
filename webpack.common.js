@@ -21,7 +21,7 @@ module.exports = {
    module: {
      rules: [
         {
-            test: /\.js$/,
+            test: /\.(js|jsx)$/,
             exclude: /node_modules/,
             use: {
               loader: "babel-loader"
@@ -39,7 +39,24 @@ module.exports = {
         use: [
           'file-loader'
         ]
-        }
+        },
+        {
+          test: /\.md$/,
+          use: [
+            {
+              loader: 'html-loader'
+            },
+              {
+                  loader: "markdown-loader",
+                  options: {
+                    headerPrefix: 'pabs-header-',
+                    highlight: function(code) {
+                      return require('highlight.js').highlightAuto(code).value;
+                    },
+                  }
+              }
+          ]
+      }
      ]
    }
 };
