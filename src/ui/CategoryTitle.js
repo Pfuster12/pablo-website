@@ -13,13 +13,13 @@ export default function CategoryTitle(props) {
     const title = props.title
 
     function handleClick(event) {
-        
+
     }
 
     // return views,
     return (
     <div className="category-title"
-        onClick={}>
+        onClick={handleClick}>
         <h4 className="category-title-text">{title}</h4>
         <img src={chevron_right}/>
     </div>
