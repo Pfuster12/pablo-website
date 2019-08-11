@@ -1,5 +1,6 @@
 :root {
     --primary: #ffe0e1;
+    --accent: blue;
     --code-background: #282C34;
   }
 
@@ -19,16 +20,15 @@
 }
 
 html, body {
-    display: flex;
     margin: 0px;
     width: 100%;
-    height: 100%;
+    height: auto;
     font-family: 'Nunito Sans';
 }
 
 main {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
 }
 
 header {
@@ -50,12 +50,12 @@ main {
 nav {
     position: -webkit-sticky;
     position: sticky;
-    top: 56px; 
+    top: 76px; 
     display: flex;
     align-self: flex-start;
     flex-direction: column;
-    padding: 1.5rem;
-    min-width: 16ch;
+    padding: 24px 32px 32px 32px;
+    min-width: 24ch;
 }
 
 section {
@@ -68,6 +68,18 @@ pre {
     color: white;
     background-color: var(--code-background);
     border-radius: 12px;
+    max-width: 80ch;
+}
+
+code {
+    white-space: pre-wrap;
+}
+
+textarea {
+    border: transparent;
+    background-color: var(--primary);
+    resize: none;
+    border-radius: 8px;
 }
 
 ul {
@@ -122,14 +134,16 @@ p {
     line-height: 1.6rem
 }
 
-span {
-    margin: 4px;
-}
-
 /*
   56 bytes to make any website beautiful.
 */
 #main-content {
+    max-width: 70ch;
+    padding: 1.5rem;
+    margin: auto;
+}
+
+#main-content-editor {
     max-width: 70ch;
     padding: 1.5rem;
     margin: auto;
@@ -140,65 +154,111 @@ span {
 }
 
 .toc-category {
-
+    display: flex;
+    flex-direction: column;
 }
 
 .toc-category-item {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
 
+.toc-category-item:hover {
+    color: var(--accent)
+}
+
+.toc-category-title {
+    display: flex;
+    flex: 1;
+    margin: 8px;
+}
+
+.toc-category-content-item {
+    display: flex;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 4px 4px 4px 24px;
+    transition: all 0.2s ease-in;
+}
+
+.toc-category-content-item:hover {
+    color: var(--accent)
 }
 
 .page-content {
 
 }
 
-.page-content-headers {
+.page-content-header {
     padding: 4px;
     font-size: 13px;
-    color: grey
+    color: gray;
+    margin: 4px;
 }
 
 .nav-divider {
     position: sticky;
-    top: 72px;
-    height: 40%;
-    margin-top: 16px;
+    top: 104px;
+    height: 100px;
+    margin-top: 32px;
     background-color: lightgrey;
     width: 1px;
 }
 
-.category-title {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    cursor: pointer;
-}
-
-.category-title-text {
-    display: flex;
-    flex: 1;
-}
-
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    nav {
+        display: none
+    }
 
+    .nav-divider {
+        display: none;
+    }
 } 
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+    nav.page-content {
+        display: none
+    }
 
+    .nav-divider {
+        display: none;
+    }
 } 
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    nav.page-content {
+        display: none
+    }
 
+    .nav-divider {
+        display: none;
+    }
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    nav.page-content {
+        display: block
+    }
 
+    .nav-divider {
+        display: block;
+    }
 } 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    nav.page-content {
+        display: block
+    }
 
+    .nav-divider {
+        display: block;
+    }
 }

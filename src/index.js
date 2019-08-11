@@ -2,12 +2,14 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom'
 import './ui/styles/Styles.css'
 
+// import the highlight style,
 import 'highlight.js/styles/ocean.css'
 
 // import the index md file, the markdown-loader uses marked to
 // parse it into html already, ie this is already a string of html.
-import indexMarkdown from './markdown/index.md'
-import CategoryTitle from './ui/CategoryTitle';
+
+const content = require('./content')
+import Category from './ui/toc/Category';
 
 /**
  * This website's React entrypoint.
@@ -18,28 +20,44 @@ export default function App() {
      * Stores the header elements in the .main-content section of this page to
      * display in the .page-content nav element.
      */
-    const [headers, setHeaders] = useState([])
+    const [headers, setHeaders] = useState({
+        height: '0px',
+        content: []
+    })
 
     /**
-     * Layout effect to read from markdown file and parse to html.
+     * Stores the content category and item index selected.
+     */
+    const [index, setIndex] = useState({
+        category: 0,
+        item: 0
+    })
+
+    /**
+     * Stores the current markdown text.
+     */
+    const [markdown, setMarkdown] = useState(() => {
+        return Object.values(Object.values(content)[index.category])[index.item]
+    })
+
+    /**
+     * Layout effect to read from the content markdown file and parse to html.
      * Injects the html to the main section html tag of this component.
      * @see markdown-loader
      */
     useLayoutEffect(() => {
-        console.log(indexMarkdown);
-
         // grab the main content section,
-        const content = document.getElementById('main-content')
+        const main = document.getElementById('main-content')
 
-        // set the html to the showdown parsed html
-        content.innerHTML = indexMarkdown
+        // set the html to the markdown parsed html
+        main.innerHTML = Object.values(Object.values(content)[index.category])[index.item]
     },
     // run only at the first load,
-    [])
+    [index])
 
     /**
      * Effect to get the count of headers in the section 'main-content' and their 
-     * titles to display in the page-content nav elemenet.
+     * titles to display in the page-content nav element.
      */
     useEffect(() => {
         // grab the content section,
@@ -48,12 +66,27 @@ export default function App() {
         // query all headers that start with the marked.js header prefix in the md file,
         const headers = [...content.querySelectorAll("[id^='pabs-header-']")]
 
-        console.log('Header count is ' + headers.length, headers);
+        // calculate the total height of the header elements with a counter,
+        var headerHeight = 0
 
-        // map the headers queried into the page content nav element,
-        setHeaders(headers)
+        // add to counter...
+        headers.forEach(header => headerHeight += header.clientHeight)
+
+        //set the headers queried to render the page content nav element,
+        setHeaders({ 
+            content: headers,
+            height: headerHeight - 24 + 'px'
+        })
     },
-    [])
+    [index])
+
+    /**
+     * Handles a content item click.
+     * @param {React.SyntheticEvent} event 
+     */
+    function handleContentClick(index) {
+        setIndex(index)
+    }
 
     return (
         <>
@@ -62,17 +95,33 @@ export default function App() {
             </header>
             <main>
                 <nav className="toc">
-                    <CategoryTitle title={'index'}/>
+                    {
+                        Object.keys(content).map((value, index) => {
+                        return <Category key={value}
+                                    index={index}
+                                    contentClick={handleContentClick}
+                                    title={value}
+                                    category={content[value]}/>
+                        })
+                    }
                 </nav>
+                <section id="main-content-editor">
+                    <textarea
+                        value={markdown}/>
+                </section>
                 <section id="main-content">
 
                 </section>
-                <div className="nav-divider"/>
+                <div className="nav-divider"
+                    style={{ height: headers.height }}/>
                 <nav className="page-content">
                     <ul>
                         {
-                            headers.map(header => {
-                                return <span key={header.id} className="page-content-headers">{header.innerText}</span>
+                            headers.content.map(header => {
+                                return <span key={header.id}
+                                 className="page-content-header">
+                                    {header.innerText}
+                                 </span>
                             })
                         }
                     </ul>

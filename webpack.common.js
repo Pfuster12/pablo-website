@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -10,7 +11,7 @@ module.exports = {
   },
   plugins: [
         new CleanWebpackPlugin(),
-         new HtmlWebpackPlugin({
+        new HtmlWebpackPlugin({
             template: "./src/index.html",
             // this property is passed to stop it from injecting
             // the bundle.js script twice.
@@ -35,28 +36,28 @@ module.exports = {
          ]
        },
        {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|md)$/,
         use: [
           'file-loader'
         ]
         },
-        {
-          test: /\.md$/,
-          use: [
-            {
-              loader: 'html-loader'
-            },
-              {
-                  loader: "markdown-loader",
-                  options: {
-                    headerPrefix: 'pabs-header-',
-                    highlight: function(code) {
-                      return require('highlight.js').highlightAuto(code).value;
-                    },
-                  }
-              }
-          ]
-      }
+      //   {
+      //     test: /\.md$/,
+      //     use: [
+      //       {
+      //         loader: 'html-loader'
+      //       },
+      //         {
+      //             loader: "markdown-loader",
+      //             options: {
+      //               headerPrefix: 'pabs-header-',
+      //               highlight: function(code) {
+      //                 return require('highlight.js').highlightAuto(code).value;
+      //               },
+      //             }
+      //         }
+      //     ]
+      // }
      ]
    }
 };
