@@ -1,13 +1,22 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom'
 import './ui/styles/Styles.css'
+
+// load marked...
+import marked from 'marked'
+// set the options for marked...
+marked.setOptions({
+    headerPrefix: 'pabs-header-',
+    highlight: function(code) {
+        return require('highlight.js').highlightAuto(code).value;
+    }
+})
 
 // import the highlight style,
 import 'highlight.js/styles/ocean.css'
 
-// import the index md file, the markdown-loader uses marked to
-// parse it into html already, ie this is already a string of html.
-
+// import the content markdown by requiring the index.js file. This returns an object with properties
+// pointing to markdown files imported as a string using the raw-loader.
 const content = require('./content')
 import Category from './ui/toc/Category';
 
@@ -36,9 +45,14 @@ export default function App() {
     /**
      * Stores the current markdown text.
      */
-    const [markdown, setMarkdown] = useState(() => {
-        return Object.values(Object.values(content)[index.category])[index.item]
-    })
+    const markdown = useMemo(() => Object.values(Object.values(content)[index.category])[index.item].default,
+    // depends on the index of the content loaded...
+    [index])
+
+    /**
+     * textarea controlled text.
+     */
+    const [text, setText] = useState(markdown)
 
     /**
      * Layout effect to read from the content markdown file and parse to html.
@@ -48,23 +62,12 @@ export default function App() {
     useLayoutEffect(() => {
         // grab the main content section,
         const main = document.getElementById('main-content')
-
+        
         // set the html to the markdown parsed html
-        main.innerHTML = Object.values(Object.values(content)[index.category])[index.item]
-    },
-    // run only at the first load,
-    [index])
-
-    /**
-     * Effect to get the count of headers in the section 'main-content' and their 
-     * titles to display in the page-content nav element.
-     */
-    useEffect(() => {
-        // grab the content section,
-        const content = document.getElementById('main-content')
+        main.innerHTML = marked(text)
 
         // query all headers that start with the marked.js header prefix in the md file,
-        const headers = [...content.querySelectorAll("[id^='pabs-header-']")]
+        const headers = [...main.querySelectorAll("[id^='pabs-header-']")]
 
         // calculate the total height of the header elements with a counter,
         var headerHeight = 0
@@ -78,6 +81,17 @@ export default function App() {
             height: headerHeight - 24 + 'px'
         })
     },
+    // run only at the first load,
+    [text])
+
+    /**
+     * Effect to get the count of headers in the section 'main-content' and their 
+     * titles to display in the page-content nav element.
+     */
+    useEffect(() => {
+        // finally set the new text
+        setText(markdown)
+    },
     [index])
 
     /**
@@ -86,6 +100,14 @@ export default function App() {
      */
     function handleContentClick(index) {
         setIndex(index)
+    }
+
+     /**
+     * Handles text area text change.
+     * @param {React.SyntheticEvent} event 
+     */
+    function handleOnChange(event) {
+        setText(event.currentTarget.value)
     }
 
     return (
@@ -107,7 +129,8 @@ export default function App() {
                 </nav>
                 <section id="main-content-editor">
                     <textarea
-                        value={markdown}/>
+                        onChange={handleOnChange}
+                        value={text}/>
                 </section>
                 <section id="main-content">
 

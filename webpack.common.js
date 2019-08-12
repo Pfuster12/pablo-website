@@ -36,11 +36,15 @@ module.exports = {
          ]
        },
        {
-        test: /\.(png|svg|jpg|gif|md)$/,
+        test: /\.(png|svg|jpg|gif)$/,
         use: [
           'file-loader'
         ]
         },
+        {
+          test: /\.(txt|md)$/i,
+          use: 'raw-loader',
+        }
       //   {
       //     test: /\.md$/,
       //     use: [

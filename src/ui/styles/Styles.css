@@ -80,6 +80,12 @@ textarea {
     background-color: var(--primary);
     resize: none;
     border-radius: 8px;
+    min-width: 40ch;
+    min-height: 200px;
+    padding: 1.5rem;
+    color: black;
+    outline: none;
+    height: 100%;
 }
 
 ul {
@@ -146,7 +152,8 @@ p {
 #main-content-editor {
     max-width: 70ch;
     padding: 1.5rem;
-    margin: auto;
+    margin-left: auto;
+    margin-right: 16px;
 }
 
 .toc {
