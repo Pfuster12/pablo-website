@@ -1,24 +1,35 @@
-import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
-import ReactDOM from 'react-dom'
-import './ui/styles/Styles.css'
+import * as React from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo } from 'react'
+import * as ReactDOM from 'react-dom'
+import './ui/Styles.css'
+import Category from './ui/toc/Category';
 
 // load marked...
-import marked from 'marked'
+import * as marked from 'marked'
 // set the options for marked...
 marked.setOptions({
+    /**
+     * Set a header prefix to query for the toc.
+     */
     headerPrefix: 'pabs-header-',
-    highlight: function(code) {
+    highlight: function(code: string) {
         return require('highlight.js').highlightAuto(code).value;
     }
 })
-
 // import the highlight style,
 import 'highlight.js/styles/ocean.css'
 
 // import the content markdown by requiring the index.js file. This returns an object with properties
 // pointing to markdown files imported as a string using the raw-loader.
-const content = require('./content')
-import Category from './ui/toc/Category';
+const markdownContent = require('./content')
+
+/**
+ * A Content interface defines the index of a Category and a 
+ */
+export interface ContentSelection {
+    category: number,
+    item: number
+}
 
 /**
  * This website's React entrypoint.
@@ -37,7 +48,7 @@ export default function App() {
     /**
      * Stores the content category and item index selected.
      */
-    const [index, setIndex] = useState({
+    const [contentSelection, setContentSelection] = useState({
         category: 0,
         item: 0
     })
@@ -45,9 +56,9 @@ export default function App() {
     /**
      * Stores the current markdown text.
      */
-    const markdown = useMemo(() => Object.values(Object.values(content)[index.category])[index.item].default,
+    const markdown = useMemo(() => Object.values(Object.values(markdownContent)[contentSelection.category])[contentSelection.item].default,
     // depends on the index of the content loaded...
-    [index])
+    [contentSelection])
 
     /**
      * textarea controlled text.
@@ -92,21 +103,21 @@ export default function App() {
         // finally set the new text
         setText(markdown)
     },
-    [index])
+    [contentSelection])
 
     /**
      * Handles a content item click.
-     * @param {React.SyntheticEvent} event 
+     * @param event 
      */
-    function handleContentClick(index) {
-        setIndex(index)
+    function handleContentClick(content: ContentSelection) {
+        setContentSelection(content)
     }
 
      /**
      * Handles text area text change.
-     * @param {React.SyntheticEvent} event 
+     * @param event 
      */
-    function handleOnChange(event) {
+    function handleOnChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
         setText(event.currentTarget.value)
     }
 
@@ -118,19 +129,17 @@ export default function App() {
             <main>
                 <nav className="toc">
                     {
-                        Object.keys(content).map((value, index) => {
+                        Object.keys(markdownContent).map((value, index) => {
                         return <Category key={value}
                                     index={index}
                                     contentClick={handleContentClick}
                                     title={value}
-                                    category={content[value]}/>
+                                    content={markdownContent[value]}/>
                         })
                     }
                 </nav>
                 <section id="main-content-editor">
-                    <textarea
-                        onChange={handleOnChange}
-                        value={text}/>
+                    <textarea onChange={handleOnChange} value={text}/>
                 </section>
                 <section id="main-content">
 

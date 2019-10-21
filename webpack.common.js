@@ -4,12 +4,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  plugins: [
+    entry: './src/index.tsx',
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: "./src/index.html",
@@ -17,51 +17,46 @@ module.exports = {
             // the bundle.js script twice.
             inject: false,
             filename: "./index.html"
-         })
-       ],
-   module: {
-     rules: [
-        {
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: {
-              loader: "babel-loader"
+        })
+    ],
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: ['*', '.ts', '.tsx', '.js']
+    },
+    module: {
+        rules: [
+            {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "ts-loader"
+                    }
+                ]
+            },
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader'
+                ]
+            },
+            {
+                test: /\.(txt|md)$/i,
+                use: 'raw-loader',
             }
-        },
-       {
-         test: /\.css$/,
-         use: [
-           'style-loader',
-           'css-loader'
-         ]
-       },
-       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader'
         ]
-        },
-        {
-          test: /\.(txt|md)$/i,
-          use: 'raw-loader',
-        }
-      //   {
-      //     test: /\.md$/,
-      //     use: [
-      //       {
-      //         loader: 'html-loader'
-      //       },
-      //         {
-      //             loader: "markdown-loader",
-      //             options: {
-      //               headerPrefix: 'pabs-header-',
-      //               highlight: function(code) {
-      //                 return require('highlight.js').highlightAuto(code).value;
-      //               },
-      //             }
-      //         }
-      //     ]
-      // }
-     ]
-   }
+    }
 };
