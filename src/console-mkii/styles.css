@@ -1,0 +1,34 @@
+span {
+    font-family: 'Consolas',monospace !important;
+    color: white;
+}
+
+.flex-row {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.console {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    background-color: black;
+    min-width: 380px;
+    min-height: 400px;
+    font-family: 'Consolas',monospace !important;
+    z-index: 1000;
+    padding: 0rem 1.5rem 0rem 1.5rem;
+    margin-right: 16px;
+}
+
+.console-close {
+    margin: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.console-title {
+    padding-top: 0.5rem;
+}
