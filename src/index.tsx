@@ -9,6 +9,7 @@ import TechStack from './view/TechStack';
 import Header from './view/Header';
 import GithubAPI from './data/GithubAPI';
 import ConsoleViewer from './console-mkii/ConsoleViewer';
+import mk2Console from './console-mkii/mk2Console'
 
 const languages = {
     english: SupportedLanguage.ENGLISH,
@@ -41,6 +42,8 @@ export default function App() {
     const [articles, setArticles] = useState<Article[]>([])
 
     useEffect(() => {
+        const mk2 = new mk2Console()
+        mk2.log('This is a log test.')
         const githubAPI = new GithubAPI()
         githubAPI.getRepositories('Pfuster12')
             .then(res => {

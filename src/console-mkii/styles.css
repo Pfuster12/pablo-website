@@ -1,11 +1,19 @@
-span {
-    font-family: 'Consolas',monospace !important;
-    color: white;
+@font-face {
+    font-family: 'ubuntu-mono';
+    src: url(./assets/ubuntu-mono-regular.ttf);
 }
 
 .flex-row {
     display: flex;
     flex: 0 0 auto;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.pt-1 {
+    padding-top: 0.5rem;
 }
 
 .console {
@@ -15,20 +23,42 @@ span {
     bottom: 0px;
     right: 0px;
     background-color: black;
-    min-width: 380px;
-    min-height: 400px;
+    width: 380px;
+    height: 400px;
     font-family: 'Consolas',monospace !important;
     z-index: 1000;
-    padding: 0rem 1.5rem 0rem 1.5rem;
+    padding: 0rem 0.5rem 0rem 1rem;
     margin-right: 16px;
 }
 
+.console-stream-container {
+    overflow: auto;
+}
+
+.console-stream {
+    font-family: 'ubuntu-mono','Consolas',monospace !important;
+    color: white;
+    white-space: pre-wrap;
+}
+
+.console-stream-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.console-stream-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,.1);
+} 
+
+.console-stream-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,.2);
+}
+
 .console-close {
-    margin: 16px;
-    width: 16px;
-    height: 16px;
+    cursor: pointer;
 }
 
 .console-title {
-    padding-top: 0.5rem;
+    flex-grow: 1;
+    color: white;
+    font-family: 'ubuntu-mono','Consolas',monospace !important;
 }
