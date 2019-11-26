@@ -1,3 +1,5 @@
+import ReactDOM = require("react-dom")
+
 /**
  * Mk2 Console library.
  */

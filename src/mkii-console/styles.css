@@ -3,7 +3,19 @@
     src: url(./assets/ubuntu-mono-regular.ttf);
 }
 
-.flex-row {
+.mk2console::-webkit-scrollbar {
+    width: 4px;
+}
+
+.mk2console::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,.1);
+} 
+
+.mk2console::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,.2);
+}
+
+.mk2console-flex-row {
     display: flex;
     flex: 0 0 auto;
 }
@@ -12,11 +24,11 @@
     align-items: center;
 }
 
-.pt-1 {
+.mk2console-pt-1 {
     padding-top: 0.5rem;
 }
 
-.console {
+.mk2console {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -29,39 +41,43 @@
     z-index: 1000;
     padding: 0rem 0.5rem 0rem 1rem;
     margin-right: 16px;
+    resize: horizontal;
+    overflow: auto;
 }
 
-.console-stream-container {
-    overflow: aguto;
+.mk2console-stream-container {
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 100%;
 }
 
-.console-stream {
+.mk2console-stream {
     font-family: 'ubuntu-mono','Consolas',monospace !important;
     color: white;
     white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 
-.console-stream-container::-webkit-scrollbar {
+.mk2console-stream-container::-webkit-scrollbar {
     width: 4px;
 }
 
-.console-stream-container::-webkit-scrollbar-thumb {
+.mk2console-stream-container::-webkit-scrollbar-thumb {
     background-color: rgba(255,255,255,.1);
 } 
 
-.console-stream-container::-webkit-scrollbar-thumb:hover {
+.mk2console-stream-container::-webkit-scrollbar-thumb:hover {
       background: rgba(255,255,255,.2);
 }
 
-.console-input-block {
+.mk2console-input-block {
     display: flex;
     flex: 1;
     white-space: pre-wrap;
     height: 100%;
 }
 
-.console-input {
+.mk2console-input {
     background-color: transparent;
     outline: none;
     display: flex;
@@ -71,11 +87,11 @@
     white-space: pre-wrap;
 }
 
-.console-close {
+.mk2console-close {
     cursor: pointer;
 }
 
-.console-title {
+.mk2console-title {
     flex-grow: 1;
     color: white;
     font-family: 'ubuntu-mono','Consolas',monospace !important;

@@ -8,7 +8,6 @@ import { TextRepository, SupportedLanguage } from './data/TextRepository';
 import TechStack from './view/TechStack';
 import Header from './view/Header';
 import GithubAPI from './data/GithubAPI';
-import ConsoleViewer from './console-mkii/ConsoleViewer';
 
 const languages = {
     english: SupportedLanguage.ENGLISH,
@@ -58,7 +57,6 @@ export default function App() {
     return (
         <LanguageContext.Provider value={languages.english}>
             <main className="flex flex-col">
-                <ConsoleViewer/>
                 <Header/>
                 <span className="p-4">{welcomeDescription}</span>
                 <TechStack/>

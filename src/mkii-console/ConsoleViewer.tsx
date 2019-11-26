@@ -1,14 +1,14 @@
 import * as React from 'react'
 import './styles.css'
-import * as close from './assets/close.svg'
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { KeyCodes } from './KeyCodes'
 import {Mk2Console} from './Mk2Console'
+import { Mk2Commands } from './Mk2Commands'
 
 /**
  * A pseudo console viewer to append on top of websites.
  */
-export default function ConsoleViewer() {
+export default function Mk2ConsoleViewer() {
 
     const [input, setInput] = useState('')
 
@@ -39,7 +39,7 @@ export default function ConsoleViewer() {
         if (event.keyCode == KeyCodes.KEY_ENTER) {
             event.preventDefault()
             switch (str) {
-                case 'clear':
+                case Mk2Commands.CLEAR:
                     flush()
                     break;
                 default:
@@ -67,18 +67,18 @@ export default function ConsoleViewer() {
     }
 
     return (
-        <div className="console">
-            <div className="flex-row pt-1 items-center">
-                <span className="console-title">mk-II Console</span>
-                <span className="console-close flex-row items-center"onClick={onClose}>[x]</span>
+        <div className="mk2console">
+            <div className="mk2console-flex-row mk2console-pt-1 mk2console-items-center">
+                <span className="mk2console-title">mk-II Console</span>
+                <span className="mk2console-close flex-row items-center"onClick={onClose}>[x]</span>
             </div>
-            <div className="console-stream-container">
-                <span className="console-stream"></span>
-                <span className="console-input-block">>&nbsp;&nbsp;
+            <div className="mk2console-stream-container">
+                <span className="mk2console-stream"></span>
+                <span className="mk2console-input-block">>&nbsp;&nbsp;
                     <textarea value={input}
                         onChange={onInputChange}
                         onKeyDown={onKeyPress}
-                        className="console-input console-stream"/>
+                        className="mk2console-input console-stream"/>
                 </span>
             </div>
         </div>
