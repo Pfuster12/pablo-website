@@ -8,6 +8,7 @@ import { TextRepository, SupportedLanguage } from './data/TextRepository';
 import TechStack from './view/TechStack';
 import Header from './view/Header';
 import GithubAPI from './data/GithubAPI';
+import Mk2ConsoleViewer from './mkii-console/Mk2ConsoleViewer';
 
 const languages = {
     english: SupportedLanguage.ENGLISH,
@@ -57,13 +58,14 @@ export default function App() {
     return (
         <LanguageContext.Provider value={languages.english}>
             <main className="flex flex-col">
+                <Mk2ConsoleViewer/>
                 <Header/>
                 <span className="p-4">{welcomeDescription}</span>
                 <TechStack/>
                 <span className="p-4">Check out some of the projects I am working on.</span>
                 <section className="article-list">
                     {
-                        articles.map(article => <Article title={article.title} body={article.body} url={article.url}/>)
+                        articles.map(article => <Article key={article.url} title={article.title} body={article.body} url={article.url}/>)
                     }
                 </section>
             </main>

@@ -1,5 +1,3 @@
-import ReactDOM = require("react-dom")
-
 /**
  * Mk2 Console library.
  */
@@ -12,11 +10,11 @@ export const Mk2Console = {
      * @param fontWeight Font weight property, default to normal.
      */
     log: (msg: string, color: string = 'white', fontWeight: string = 'normal') => {
-        const stream = document.querySelector('.console-stream')
+        const stream = document.querySelector('.mk2console-stream')
         const span = document.createElement('span')
-        span.className = 'console-stream'
+        span.className = 'mk2console-stream'
         span.innerHTML = '> ' 
-            + '<span class="console-stream" style="color:' 
+            + '<span class="mk2console-stream" style="color:' 
             + color 
             + ';font-weight:'
             + fontWeight
@@ -34,7 +32,7 @@ export const Mk2Console = {
      * Flush text stream.
      */
     flush: () => {
-        const stream = document.querySelector('.console-stream')
+        const stream = document.querySelector('.mk2console-stream')
         stream.innerHTML = ''
     }
 }

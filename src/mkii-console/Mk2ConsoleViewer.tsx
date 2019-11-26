@@ -17,10 +17,10 @@ export default function Mk2ConsoleViewer() {
      */
     function flush() {
         // flush stream text,
-        const stream = document.querySelector('.console-stream')
+        const stream = document.querySelector('.mk2console-stream')
         stream.innerHTML = ''
         // focus on input
-        const textarea = document.querySelector('.console-input') as HTMLTextAreaElement
+        const textarea = document.querySelector('.mk2console-input') as HTMLTextAreaElement
         textarea.focus()
     }
 
@@ -33,7 +33,6 @@ export default function Mk2ConsoleViewer() {
     }
 
     function onKeyPress(event: React.KeyboardEvent) {
-        console.log(event.keyCode);
         const str = input.trim()
         
         if (event.keyCode == KeyCodes.KEY_ENTER) {
@@ -78,7 +77,7 @@ export default function Mk2ConsoleViewer() {
                     <textarea value={input}
                         onChange={onInputChange}
                         onKeyDown={onKeyPress}
-                        className="mk2console-input console-stream"/>
+                        className="mk2console-input mk2console-stream"/>
                 </span>
             </div>
         </div>
