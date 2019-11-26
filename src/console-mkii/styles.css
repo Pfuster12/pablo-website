@@ -32,7 +32,8 @@
 }
 
 .console-stream-container {
-    overflow: auto;
+    overflow: aguto;
+    height: 100%;
 }
 
 .console-stream {
@@ -51,6 +52,23 @@
 
 .console-stream-container::-webkit-scrollbar-thumb:hover {
       background: rgba(255,255,255,.2);
+}
+
+.console-input-block {
+    display: flex;
+    flex: 1;
+    white-space: pre-wrap;
+    height: 100%;
+}
+
+.console-input {
+    background-color: transparent;
+    outline: none;
+    display: flex;
+    flex: 1;
+    resize: none;
+    height: 100%;
+    white-space: pre-wrap;
 }
 
 .console-close {
