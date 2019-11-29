@@ -1,7 +1,4 @@
 import * as https from 'https'
-import { resolve } from 'dns';
-import { rejects } from 'assert';
-import { Mk2Console } from '../mkii-console/Mk2Console';
 
 export interface Owner {
     login: string;
@@ -135,7 +132,6 @@ export default class GithubAPI {
                 res.on('end', () => {
                     try {
                         const parsedData = JSON.parse(data);
-                        Mk2Console.log(data);
                         resolve(parsedData)
                     } catch (e) {
                         console.error(e.message);

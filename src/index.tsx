@@ -9,6 +9,7 @@ import TechStack from './view/TechStack';
 import Header from './view/Header';
 import GithubAPI from './data/GithubAPI';
 import Mk2ConsoleViewer from './mkii-console/Mk2ConsoleViewer';
+import { Mk2Console } from './mkii-console/Mk2Console';
 
 const languages = {
     english: SupportedLanguage.ENGLISH,
@@ -41,10 +42,15 @@ export default function App() {
     const [articles, setArticles] = useState<Article[]>([])
 
     useEffect(() => {
+        Mk2Console.log('Welcome to the Mk-II Console!', '#5cc7e2')
+        Mk2Console.log('It\'s a trusty window console for all your logging needs!', 'yellow')
+        Mk2Console.log('And it supports rich formatting.', '#3dda82', 'bold')
+        Mk2Console.log('Go to github.com/Pfuster12/mk2Console for more', 'yellow')
+        Mk2Console.log('Check out its command input. Write anything to print out or write "clear" to clear all the messages. More command support to come!')
         const githubAPI = new GithubAPI()
         githubAPI.getRepositories('Pfuster12')
             .then(res => {
-                const filterRegex = /BoilerCycle|android-yabu|BouncyEnter|code-link|pablo-website|http-relayer|safe.ly|react-ts-skeleton|YabuJava|tenstep-es/
+                const filterRegex = /BoilerCycle|android-yabu|BouncyEnter|code-link|pablo-website|http-relayer|safe.ly|react-ts-skeleton|YabuJava|mk2Console|tenstep-es/
                 const filteredRepos = res.filter(repo => repo.name.match(filterRegex))
                 const articles = filteredRepos.map(repo => {
                     return {title: repo.name, body: repo.description, url: repo.html_url }
