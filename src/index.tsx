@@ -8,8 +8,7 @@ import { TextRepository, SupportedLanguage } from './data/TextRepository';
 import TechStack from './view/TechStack';
 import Header from './view/Header';
 import GithubAPI from './data/GithubAPI';
-import Mk2ConsoleViewer from './mkii-console/Mk2ConsoleViewer';
-import { Mk2Console } from './mkii-console/Mk2Console';
+import {Mk2ConsoleViewer, Mk2Console} from 'mk2console'
 
 const languages = {
     english: SupportedLanguage.ENGLISH,
@@ -42,11 +41,6 @@ export default function App() {
     const [articles, setArticles] = useState<Article[]>([])
 
     useEffect(() => {
-        Mk2Console.log('Welcome to the Mk-II Console!', '#5cc7e2')
-        Mk2Console.log('It\'s a trusty window console for all your logging needs!', 'yellow')
-        Mk2Console.log('And it supports rich formatting.', '#3dda82', 'bold')
-        Mk2Console.log('Go to github.com/Pfuster12/mk2Console for more', 'yellow')
-        Mk2Console.log('Check out its command input. Write anything to print out or write "clear" to clear all the messages. More command support to come!')
         const githubAPI = new GithubAPI()
         githubAPI.getRepositories('Pfuster12')
             .then(res => {
@@ -64,7 +58,6 @@ export default function App() {
     return (
         <LanguageContext.Provider value={languages.english}>
             <main className="flex flex-col">
-                <Mk2ConsoleViewer/>
                 <Header/>
                 <span className="p-4">{welcomeDescription}</span>
                 <TechStack/>
@@ -74,6 +67,7 @@ export default function App() {
                         articles.map(article => <Article key={article.url} title={article.title} body={article.body} url={article.url}/>)
                     }
                 </section>
+                <Mk2ConsoleViewer/>
             </main>
         </LanguageContext.Provider>
     )
