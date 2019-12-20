@@ -8,7 +8,7 @@ import { TextRepository, SupportedLanguage } from './data/TextRepository';
 import TechStack from './view/TechStack';
 import Header from './view/Header';
 import GithubAPI from './data/GithubAPI';
-import {Mk2ConsoleViewer, Mk2Console} from 'mk2console'
+import {Mk2ConsoleViewer} from 'mk2console'
 
 const languages = {
     english: SupportedLanguage.ENGLISH,
