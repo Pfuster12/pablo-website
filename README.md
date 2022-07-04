@@ -1,3 +1,7 @@
 ## My Website
 
-Welcome to my website, where I test the latest React x CSS.
+Welcome to my website. 
+
+### Inspiration
+
+https://motherfuckingwebsite.com/
